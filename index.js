@@ -5,8 +5,9 @@ const fetch = require('node-fetch');
 
 async function run() {
     const repo = core.getInput('repo');
-    const ref = core.getInput('ref')
-    
+    const ref = core.getInput('ref');
+    const files = core.getInput('files');
+    console.log(files)
     let release = '';
     let err = '';
 
@@ -31,11 +32,11 @@ async function run() {
     
     const host = 'https://hooks.qcr.ai';
     const resp = await fetch(
-        `http://localhost:5000/releases/${repo}/${ref}`, {
+        `http://hooks.qcr.ai/releases/${repo}/${ref}`, {
         method: 'POST',
         body:    JSON.stringify({
             release: release.trim(),
-            files: JSON.parse(core.getInput('files'))
+            files: JSON.parse(files)
         }),
         headers: { 'Content-Type': 'application/json' }
     });
@@ -44,7 +45,7 @@ async function run() {
         core.setFailed('Unknown error');
         return;
     }
-    console.log(`http://localhost:5000/releases/${repo}/${ref}`)
+    console.log(`Sent POST request to http://hooks.qcr.ai/releases/${repo}/${ref}`)
 }
 
 run();
