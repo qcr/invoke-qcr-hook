@@ -5,9 +5,9 @@ const fetch = require('node-fetch');
 
 async function run() {
     const repo = core.getInput('repo');
-    const ref = core.getInput('ref');
+    const ref = core.getInput('ref').replace(/[/]?refs\/tags\//g, '');
     const files = core.getInput('files');
-    console.log(files)
+    
     let release = '';
     let err = '';
 
