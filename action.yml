@@ -1,0 +1,19 @@
+name: 'Invoke QCR Release Hooks'
+description: 'Invokes the QCR Release Hooks to rebuild release indexes'
+author: 'Gavin Suddrey'
+branding:
+  icon: archive
+  color: orange
+inputs:
+  repo:
+    description: 'Repo name'
+    required: true
+  repo:
+    description: 'Repo tag'
+    required: true
+  files:
+    description: 'Release files to upload.'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
