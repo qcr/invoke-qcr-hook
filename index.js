@@ -31,8 +31,9 @@ async function run() {
     }
     
     const host = 'https://hooks.qcr.ai';
+    
     const resp = await fetch(
-        `http://hooks.qcr.ai/releases/${repo}/${ref}`, {
+        `${host}/releases/${repo}/${ref}`, {
         method: 'POST',
         body:    JSON.stringify({
             release: release.trim(),
