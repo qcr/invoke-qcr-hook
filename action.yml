@@ -14,6 +14,9 @@ inputs:
   files:
     description: 'Release files to upload.'
     required: true
+  packages:
+    description: 'Stringified YAML describing generated packages for distro'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'

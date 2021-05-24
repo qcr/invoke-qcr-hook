@@ -7,6 +7,7 @@ async function run() {
     const repo = core.getInput('repo');
     const ref = core.getInput('ref').replace(/[/]?refs\/tags\//g, '');
     const files = core.getInput('files');
+    const packages = core.getInput('packages');
     
     let release = '';
     let err = '';
@@ -37,7 +38,8 @@ async function run() {
         method: 'POST',
         body:    JSON.stringify({
             release: release.trim(),
-            files: JSON.parse(files)
+            files: JSON.parse(files),
+            packages
         }),
         headers: { 'Content-Type': 'application/json' }
     });
