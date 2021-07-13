@@ -4,12 +4,11 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 async function run() {
-    console.log('What is happening');
     const repo = core.getInput('repo');
     const ref = core.getInput('ref').replace(/[/]?refs\/tags\//g, '');
     const files = core.getInput('files');
     const packages = core.getInput('packages');
-    console.log('I got my inputs');
+    
     let release = '';
     let err = '';
 
@@ -24,7 +23,7 @@ async function run() {
         },
         silent: true
     }
-    console.log('Get release');
+    
     await exec.exec('lsb_release', ['-sc'], options);
 
     if (err) {
@@ -33,7 +32,7 @@ async function run() {
     }
     
     const host = 'https://hooks.qcr.ai';
-    console.log('Do fetch');
+    
     const resp = await fetch(
         `${host}/releases/${repo}/${ref}`, {
         method: 'POST',
@@ -44,7 +43,7 @@ async function run() {
         }),
         headers: { 'Content-Type': 'application/json' }
     });
-    console.log('What');
+    
     if (!resp.ok) {
         core.setFailed('Unknown error');
         return;
