@@ -4,33 +4,12 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 async function run() {
+    const release = core.getInput('release');
     const repo = core.getInput('repo');
     const ref = core.getInput('ref').replace(/[/]?refs\/tags\//g, '');
     const files = core.getInput('files');
     const packages = core.getInput('packages');
-    
-    let release = '';
-    let err = '';
-
-    const options = {
-        listeners: {
-            stdout: (data) => {
-                release += data.toString();
-            },
-            stderr: (data) => {
-                err += data.toString();
-            }
-        },
-        silent: true
-    }
-    
-    await exec.exec('lsb_release', ['-sc'], options);
-
-    if (err) {
-        core.setFailed(err);
-        return;
-    }
-    
+        
     const host = 'https://hooks.qcr.ai';
     
     const resp = await fetch(
