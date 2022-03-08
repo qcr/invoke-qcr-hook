@@ -10,6 +10,29 @@ async function run() {
     const files = core.getInput('files');
     const packages = core.getInput('packages');
         
+    if (release.length === 0) {
+        let err = '';
+        
+        const options = {
+            listeners: {
+                stdout: (data) => {
+                    release += data.toString();
+                },
+                stderr: (data) => {
+                    err += data.toString();
+                }
+            },
+            silent: true
+        }
+
+        await exec.exec('lsb_release', ['-sc'], options);
+
+        if (err) {
+            core.setFailed(err);
+            return;
+        }
+    }
+    
     const host = 'https://hooks.qcr.ai';
     
     const resp = await fetch(
