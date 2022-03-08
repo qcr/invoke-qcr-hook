@@ -4,7 +4,8 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 async function run() {
-    const release = core.getInput('release');
+    let release = core.getInput('release');
+    
     const repo = core.getInput('repo');
     const ref = core.getInput('ref').replace(/[/]?refs\/tags\//g, '');
     const files = core.getInput('files');
