@@ -5,6 +5,10 @@ branding:
   icon: archive
   color: orange
 inputs:
+  release:
+    description: 'Linux release (e.g., bionic, focal)'
+    required: false
+    default: ''
   repo:
     description: 'Repo name'
     required: true
